@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}إنشاء كود | DOC VAULT{% endblock %}
+{% block content %}<section class="form-page panel"><div class="eyebrow">TEMPORARY ACCESS</div><h1>إنشاء كود دخول</h1><p>الكود يظهر مرة واحدة فقط. انسخه وابعته للطالب.</p>
+{% if plain %}<div class="generated"><small>الكود الجديد — انسخه الآن</small><strong dir="ltr">{{ plain }}</strong><button class="btn" type="button" onclick="navigator.clipboard.writeText('{{ plain }}').then(()=>this.textContent='تم النسخ ✓')">نسخ الكود</button></div>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn">إنشاء الكود</button></form></section>{% endblock %}

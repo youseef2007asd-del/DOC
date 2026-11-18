@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block title %}رفع ملف | DOC VAULT{% endblock %}
+{% block content %}<section class="form-page panel"><div class="eyebrow">UPLOAD CONTENT</div><h1>رفع ملف جديد</h1><p>ارفع كتابًا أو محاضرة PDF أو أي ملف دراسي.</p><form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<button class="btn">حفظ الملف</button></form><p class="muted">للملفات الكبيرة أو الرفع الجماعي لعدد كبير من الملفات، استخدم لوحة إدارة الملفات أو اطلب إضافة الرفع الجماعي في المرحلة التالية.</p></section>{% endblock %}

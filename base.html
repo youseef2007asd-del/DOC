@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}DOC VAULT{% endblock %}</title>
+<link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="/">DOC<span>VAULT</span></a><nav>
+{% if user.is_authenticated and user.is_staff %}<a href="/doctor/">لوحة الدكتور</a><a href="/doctor/admin/">إدارة المحتوى</a><a href="/doctor/logout/">خروج</a>
+{% elif request.session.guest_code_id %}<a href="/library/">المكتبة</a>{% endif %}
+</nav></header>
+<main class="wrap">{% if messages %}{% for message in messages %}<div class="notice">{{ message }}</div>{% endfor %}{% endif %}
+{% block content %}{% endblock %}</main>
+<footer>DOC VAULT · مكتبة المحاضرات والملفات الرقمية</footer>
+</body></html>

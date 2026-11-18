@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}دخول المكتبة | DOC VAULT{% endblock %}
+{% block content %}<section class="hero"><div class="eyebrow">UNIVERSITY DIGITAL LIBRARY</div><h1>كل ملفاتك الدراسية<br><span>في مكان واحد.</span></h1><p>أدخل كود الدخول الذي حصلت عليه من الدكتور للوصول إلى الكتب والمحاضرات.</p>
+<form method="post" class="panel">{% csrf_token %}<label for="{{ form.code.id_for_label }}">كود الدخول</label>{{ form.code }}{% for e in form.code.errors %}<small class="error">{{ e }}</small>{% endfor %}<button class="btn" type="submit">دخول المكتبة <b>←</b></button></form>
+<a class="doctor-link" href="/doctor/login/">دخول الدكتور</a></section>{% endblock %}

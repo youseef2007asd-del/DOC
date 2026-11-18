@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: docvault
+      POSTGRES_USER: docvault
+      POSTGRES_PASSWORD: docvault
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docvault"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py createsuperuser --noinput 2>/dev/null || true; gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120"
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://docvault:docvault@db:5432/docvault
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME:-doctor}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL:-doctor@example.com}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD:-ChangeThisNow123!}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - media_data:/app/media
+
+volumes:
+  postgres_data:
+  media_data:
